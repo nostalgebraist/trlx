@@ -9,8 +9,6 @@ import torch.nn as nn
 import transformers
 from torchtyping import TensorType
 from transformers.modeling_outputs import ModelOutput
-from transformers.models.bloom import modeling_bloom
-from transformers.models.opt import modeling_opt
 
 from trlx.data.method_configs import MethodConfig, register_method
 from trlx.utils.modeling import (
@@ -856,6 +854,8 @@ class OPTModelBranch(transformers.PreTrainedModel):
         return_dict: Optional[bool] = False,
         position_ids: Optional[torch.LongTensor] = None,
     ) -> Union[Tuple, CausalLMOutputWithCrossAttentions]:
+        from transformers.models.opt import modeling_opt
+
         """Override OPTForCausalLM"""
         output_attentions = output_attentions if output_attentions is not None else self.config.output_attentions
         output_hidden_states = (
@@ -1020,6 +1020,8 @@ class BloomModelBranch(transformers.PreTrainedModel):
         return_dict: Optional[bool] = False,
         position_ids: Optional[torch.LongTensor] = None,
     ) -> Union[Tuple, CausalLMOutputWithCrossAttentions]:
+        from transformers.models.bloom import modeling_bloom
+
         output_attentions = output_attentions if output_attentions is not None else self.config.output_attentions
         output_hidden_states = (
             output_hidden_states if output_hidden_states is not None else self.config.output_hidden_states
